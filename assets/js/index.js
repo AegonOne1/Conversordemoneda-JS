@@ -7,15 +7,11 @@
 const recopilarDatos = () =>{
 
     const cantidad_CLP = document.getElementById("cantidad").value 
-    console.log(cantidad_CLP)
+    // console.log(cantidad_CLP)
 
     let monedaConversion = document.getElementById("SeleccionDeMoneda").value
-    console.log(monedaConversion)
+    // console.log(monedaConversion)
     
-
-    // const resultadoConversion = (cantidad_CLP * monedaConversion)
-    // console.log(resultadoConversion)
-
     const ruta = "https://mindicador.cl/api"
 
     fetch(ruta)
@@ -23,30 +19,61 @@ const recopilarDatos = () =>{
         return response.json()
     })
     .then(data =>{
-        console.log(data)
-        // console.log(data.dolar.valor, 'metodo clasico')
+        // console.log(data)
         
-        let moneda = 'dolar' // 
-        moneda = 'bitcoin'
-        // console.log(data[moneda]['valor'], 'metodo no tan clasico')
+        const valorConversion = (data[monedaConversion]['valor'])
+        // console.log(valorConversion)
 
+        const resultadoConversion = (cantidad_CLP / valorConversion)
+        // console.log(resultadoConversion)
 
-        // console.log(data[monedaConversion]['valor'], 'monedaConversion')
+        document.getElementById("mensajeDeError").innerHTML = ""
+        document.getElementById("resultado").innerHTML = `Resultado: $ ${resultadoConversion} `
 
-        calculo(data, cantidad_CLP, monedaConversion)
-
-
-        // const valorEuro = data.euro.valor
-        // console.log(valorEuro)
-        // const valorDolar = data.dolar.valor
-        // console.log(valorDolar)
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+        document.getElementById("mensajeDeError").innerHTML = `Error: ${error.mensaje}`
+        console.log(error)
+    })
 }
 
-function calculo (datos, clp, cambio) {
-    console.log(datos, clp, cambio)
+async function CreacionDeGrafico() {
+    const res = await
+    fetch("https://mindicador.cl/api")
+    const valor = await res.json()
+    console.log(valor)
+
+
+
+    // const labels = (valor[])
 }
+
+CreacionDeGrafico()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // const completo = ['salchicha', 'palta', 'tomate'] // arreglo = iterar!!!! 
 
 // const completo2 = {
