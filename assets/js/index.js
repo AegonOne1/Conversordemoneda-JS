@@ -51,10 +51,10 @@ async function implementarGrafico() {
         // console.log(data)
 
         const fechas = (data[ConversionConfirmada]["fecha"])
-        console.log(fechas)
+        // console.log(fechas)
 
         const valores = (data[ConversionConfirmada]["valor"])
-        console.log(valores)
+        // console.log(valores)
 
         createChart = new Chart(ctx, {
             type: 'line',
