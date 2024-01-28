@@ -12,17 +12,19 @@
     </header>
     <div class="card">
         <h3>Conversor de CLP</h3>
-        <input type="number" id="cantidad" min="0" step="0.1" placeholder="Ingrese el monto en CLP">
+        <input type="text" id="cantidad" min="0" step="0.1" placeholder="Ingrese el monto en CLP">
         <h4>Moneda a convertir: </h4>
         <select name="Monedas" id="SeleccionDeMoneda">
-            <option value="dolar">Dolar estadounidense (USD)</option>
+            <option value="">Seleccione moneda</option>
+            <option value="dolar">Dolar (USD)</option>
             <option value="euro">Euro (EUR)</option>
         </select>
         <button onclick="recopilarDatos()">Buscar</button>
         <p id="resultado"></p>
+        <div class="error" id="mensajeDeError" style="color: red;"></div>
     </div>
     
-    <div id="mensajeDeError" style="color: red;"></div>
+
 
     <div>
         <canvas id="Grafico"></canvas>

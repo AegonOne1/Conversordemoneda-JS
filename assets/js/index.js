@@ -32,8 +32,8 @@ const recopilarDatos = () =>{
 
     })
     .catch(error => {
-        document.getElementById("mensajeDeError").innerHTML = `Error: ${error.mensaje}`
-        console.log(error)
+        document.getElementById("mensajeDeError").innerHTML = `Error: favor de ingresar valor a convertir`
+        // console.log(error)
     })
 }
 
