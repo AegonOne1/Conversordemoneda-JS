@@ -4,51 +4,85 @@
  4. implementar grafico utilizando camvas y chart.js. */
 
 
-const recopilarDatos = () =>{
+const recopilarDatos = () => {
 
-    const cantidad_CLP = document.getElementById("cantidad").value 
+    const cantidad_CLP = document.getElementById("cantidad").value
     // console.log(cantidad_CLP)
 
     let monedaConversion = document.getElementById("SeleccionDeMoneda").value
     // console.log(monedaConversion)
-    
+
     const ruta = "https://mindicador.cl/api"
 
     fetch(ruta)
-    .then(response => {
-        return response.json()
-    })
-    .then(data =>{
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            // console.log(data)
+
+            const valorConversion = (data[monedaConversion]['valor'])
+            // console.log(valorConversion)
+
+            const resultadoConversion = (cantidad_CLP / valorConversion)
+            // console.log(resultadoConversion)
+
+            document.getElementById("mensajeDeError").innerHTML = ""
+            document.getElementById("resultado").innerHTML = `Resultado: $ ${resultadoConversion} `
+
+        })
+        .catch(() => {
+            document.getElementById("mensajeDeError").innerHTML = `Error: favor de ingresar valor a convertir`
+            // console.log(error)
+        })
+}
+
+
+async function implementarGrafico() {
+
+    const ctx = document.getElementById("myChart")
+
+    const ConversionConfirmada = document.getElementById("SeleccionDeMoneda").value
+    // console.log(ConversionConfirmada)
+
+    try {
+        const resp = await fetch("https://mindicador.cl/api/")
+        const data = await resp.json()
         // console.log(data)
-        
-        const valorConversion = (data[monedaConversion]['valor'])
-        // console.log(valorConversion)
 
-        const resultadoConversion = (cantidad_CLP / valorConversion)
-        // console.log(resultadoConversion)
+        const fechas = (data[ConversionConfirmada]["fecha"])
+        console.log(fechas)
 
-        document.getElementById("mensajeDeError").innerHTML = ""
-        document.getElementById("resultado").innerHTML = `Resultado: $ ${resultadoConversion} `
+        const valores = (data[ConversionConfirmada]["valor"])
+        console.log(valores)
 
-    })
-    .catch(error => {
-        document.getElementById("mensajeDeError").innerHTML = `Error: favor de ingresar valor a convertir`
-        // console.log(error)
-    })
+        createChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: fechas,
+                datasets: [{
+                    label: `Valores de ${ConversionConfirmada} en los ultimos 10 dias`,
+                    data: valores,
+                    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        })
+    } catch (error) {
+        console.error('Error al cargar el grafico: ' + error.message)
+    }
+
 }
 
-async function CreacionDeGrafico() {
-    const res = await
-    fetch("https://mindicador.cl/api")
-    const valor = await res.json()
-    console.log(valor)
-
-
-
-    // const labels = (valor[])
-}
-
-CreacionDeGrafico()
+implementarGrafico()
 
 
 
@@ -69,12 +103,7 @@ CreacionDeGrafico()
 
 
 
-
-
-
-
-
-// const completo = ['salchicha', 'palta', 'tomate'] // arreglo = iterar!!!! 
+// const completo = ['salchicha', 'palta', 'tomate'] // arreglo = iterar!!!!
 
 // const completo2 = {
 //     salchicha: 1,
@@ -86,7 +115,7 @@ CreacionDeGrafico()
 
 // console.log(completo2.palta, 'desde el obj')
 
-// consultardatos asyncrona 
+// consultardatos asyncrona
 //  const consultarDatos2 = async () => {
 
 //     const ruta2 = "https://mindicador.cl/api"
